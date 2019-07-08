@@ -9,14 +9,57 @@ import Weather from './components/weather'
 
 class App extends React.Component {
 
-    getweather = async (e) => {
-        const api_call = await fetch('http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=14b174dcab9bf47b49468e07daa1ff87')
-        const results = await api_call.json()
-        //prevents a full page refresh
-        e.preventDefault();
-        console.log(results);
+
+    constructor(props) {
+        super(props)
+        this.getweather = this.getweather.bind(this)
+        this.state = {
+                 temperature: undefined,
+                 city: undefined,
+                 country: undefined
+          
+
+        } 
+
+
+
 
     }
+
+
+
+    
+// async function
+    getweather = async function fetchAsync(e) {
+ 
+    
+
+        e.preventDefault();
+
+    const city = e.target.city.value
+    const country = e.target.country.value
+    const URL = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + ',' + country + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
+    // await response of fetch call
+    //const response = await fetch('http://api.openweathermap.org/data/2.5/weather?q=greenfield,usa&APPID=14b174dcab9bf47b49468e07daa1ff87')
+    const response = await fetch(URL);
+    // only proceed once promise is resolved
+    const results = await response.json(); 
+    console.log(results);
+    
+
+   
+   await this.setState ({
+    temperature: results.main.temp,
+    city: results.name,
+    country: results.sys.country
+
+}); 
+    console.log(this.state.city)
+    console.log(this.state.temperature)
+    
+ 
+}
+
 
 
     render() {
@@ -24,7 +67,10 @@ class App extends React.Component {
             <div>
                 <Titles />
                 <Forms loadWeather={this.getweather} />
-                <Weather />
+                <Weather WeatherCompCity = {this.state.city} 
+                         WeatherCompCountry = {this.state.country}
+                         WeatherCompTemp = {this.state.temperature}
+                       />
 
 
             </div>
