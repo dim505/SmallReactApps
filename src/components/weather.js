@@ -8,13 +8,12 @@ export default function Weather(props)  {
 
         return ( <div>  
                 
-            
-                {props.WeatherCompCity && <p>City: {props.WeatherCompCity} </p>}
-                {props.WeatherCompCountry && <p>Country: {props.WeatherCompCountry} </p>}
-                {props.WeatherCompTemp && <p>Temp: {props.WeatherCompTemp} </p>}
-             
-
-                
+               
+                        {props.WeatherCompError && <p>{props.WeatherCompError} </p> }
+                        {props.WeatherCompCity && <p>City: {props.WeatherCompCity} {props.WeatherCompCountry} </p>}
+                        {props.WeatherCompTemp && <p>Current Temp: {props.WeatherCompTemp} F</p>}
+                        {props.WeatherCompLat && <p>Latitube: {props.WeatherCompLat}  </p> }
+                        {props.WeatherCompLon && <p>Longitude: {props.WeatherCompLon} </p>}
 
                 
                  </div>
