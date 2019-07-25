@@ -8,6 +8,7 @@ import {Marker, Map, GoogleApiWrapper } from 'google-maps-react';
   const mapstyles = {
     width: '50%',
     height: '50%'
+    
 };
 
 

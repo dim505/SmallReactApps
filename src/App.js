@@ -5,6 +5,7 @@ import Titles from './components/title'
 import Forms from './components/forms'
 import Weather from './components/weather'
 import MapContainer from './components/googlemap'
+import ReactDOM from 'react-dom';
 
 
 
@@ -21,7 +22,9 @@ class App extends React.Component {
                  city: undefined,
                  country: undefined,
                  lat : undefined,
-                 lon: undefined
+                 lon: undefined,
+                 Desc : undefined,
+                 Icon : undefined
 
         } 
 
@@ -30,9 +33,9 @@ class App extends React.Component {
 
     }
 
+      
 
 
-    
 // async function
     getweather = async function fetchAsync(e) {
  
@@ -46,14 +49,16 @@ class App extends React.Component {
     // await response of fetch call
     const response = await fetch(URL);
     const results = await response.json(); 
-    //console.log(results)
-    console.log()
-    console.log()
+    
+
     
     if(city && country && response.status !== 404){
        
     const temp = Number(( (((results.main.temp - 273.15) * 9)/5) + 32).toFixed(2))
-    console.log(typeof temp)
+    
+
+    var IconUrl = "https://openweathermap.org/img/wn/" + results.weather[0].icon + "@2x.png"    
+
 
     this.setState ({
     error: "",
@@ -61,8 +66,9 @@ class App extends React.Component {
     city: results.name,
     country: results.sys.country,
     lat: results.coord.lat,
-    lon: results.coord.lon
-
+    lon: results.coord.lon,
+    Desc : results.weather[0].description,
+    Icon : IconUrl
     })
 
 
@@ -77,7 +83,9 @@ class App extends React.Component {
     city: "",
     country: "",
     lat: "",
-    lon: ""
+    lon: "",
+    Desc : "",
+    Icon : ""
 
 })} 
     
@@ -87,19 +95,38 @@ class App extends React.Component {
 }
 
 
+componentDidMount () {
 
+    console.log("loaded")
+    // Get the components DOM node
+     const elem = ReactDOM.findDOMNode(this);
+    // Set the opacity of the element to 0
+    elem.style.opacity = 0;
+    //alert("test");
+    setTimeout(() => {
+        // Now set a transition on the opacity
+        elem.style.transition = "opacity 2000ms";
+        // and set the opacity to 1
+    elem.style.opacity = 1;
+    }, 500);
+
+
+}
     render() {
         return (
-            <div>
+            <div className="background">
+
+            
                 <div className="center">
-
-
+                    
                     <Titles />
                     <Forms loadWeather={this.getweather} />
                     <Weather WeatherCompError = {this.state.error}
                             WeatherCompCity = {this.state.city} 
                             WeatherCompCountry = {this.state.country}
                             WeatherCompTemp = {this.state.temperature}
+                            WeatherCompDesc = {this.state.Desc}
+                            WeatherCompIcon = {this.state.Icon}
                         />
                 </div>
                 <div id="map" className="center">

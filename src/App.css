@@ -7,17 +7,30 @@
 
 }
 
-#map {
-	
-	
+.form-control {
+	text-align:center;
 	
 	
 }
 
-#background {
-    background-image: url('https://image.freepik.com/free-photo/orange-gradient-background-with-spotlight-shine-center-vignette-border_79161-627.jpg');
-    width: 200px;
-    height: 200px;
-    /* you need to match the shadow color to your background or image border for the desired effect*/
-    box-shadow: 0 0 8px 8px white inset;
+.background {
+	opacity: 0;
+	
+	
 }
+
+.WeathStyle p {
+	margin-bottom: 0px;
+	
+	
+}
+
+.WeathStyle {
+	margin-top: 10px;	
+	
+}
+
+
+
+
+

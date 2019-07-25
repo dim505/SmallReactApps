@@ -10,3 +10,8 @@ root folder > SRC
 This is where all my React JS folders live
 
 One technicality I noticed is if you insert an invalid country, the API will default to the US as a country.
+
+
+
+
+
