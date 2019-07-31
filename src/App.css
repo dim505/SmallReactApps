@@ -27,9 +27,66 @@
 
 .WeathStyle {
 	margin-top: 10px;	
+	text-shadow: 0px 3px 3px rgba(255,255,255,0.5), 2px 2px 2px rgba(206,89,55,0);
+	color: #1246FF;
+	background: #FFFFFF;
+	font-size: 20px;
+	border: solid black;
+    border-radius: 10px;
 	
 }
 
+.flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+
+#left {
+	
+	float:left;
+	margin-top: 15px;
+	
+}
+
+#right {
+	
+		float:right;
+
+	
+}
+
+#header {
+	text-shadow: 2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0,0,0,0.15), 40px 40px 20px rgba(206,89,55,0);
+color: #FF0000;
+background: #FFFFFF;
+	
+	
+}
+
+
+#headerBody {
+	
+color: #444444;
+background: #FFFFFF;
+text-shadow: 1px 0px 1px #CCCCCC, 0px 1px 1px #EEEEEE, 2px 1px 1px #CCCCCC, 1px 2px 1px #EEEEEE, 3px 2px 1px #CCCCCC, 2px 3px 1px #EEEEEE, 4px 3px 1px #CCCCCC, 3px 4px 1px #EEEEEE, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC;
+color: #444444;
+background: #FFFFFF;
+margin-bottom: 20px;
+	
+}
+
+
+.form-control:hover {
+	color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25)
+	
+	
+	
+}
 
 
 

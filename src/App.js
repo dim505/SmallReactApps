@@ -6,7 +6,7 @@ import Forms from './components/forms'
 import Weather from './components/weather'
 import MapContainer from './components/googlemap'
 import ReactDOM from 'react-dom';
-
+import {Circle} from 'react-preloaders';
 
 
 
@@ -108,14 +108,17 @@ componentDidMount () {
         elem.style.transition = "opacity 2000ms";
         // and set the opacity to 1
     elem.style.opacity = 1;
-    }, 500);
+    }, 6000);
 
 
 }
     render() {
-        return (
+        return (<React.Fragment>
             <div className="background">
-
+                    
+      
+      
+    
             
                 <div className="center">
                     
@@ -137,8 +140,13 @@ componentDidMount () {
                             zoom = {10}
                     />
                 </div>
-            </div>
-
+                </div>
+                <Circle 
+                       time={2500}
+                       color="#FFFAF0"
+                       background= "radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)"
+                />
+            </React.Fragment>
 
         )
     }
