@@ -91,3 +91,10 @@ margin-bottom: 20px;
 
 
 
+.animation {
+	transition: opacity 1s ease;
+}
+
+
+
+

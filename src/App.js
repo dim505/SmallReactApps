@@ -12,7 +12,7 @@ import {Circle} from 'react-preloaders';
 
 class App extends React.Component {
 
-
+    
     constructor(props) {
         super(props)
         this.getweather = this.getweather.bind(this)
@@ -24,7 +24,8 @@ class App extends React.Component {
                  lat : undefined,
                  lon: undefined,
                  Desc : undefined,
-                 Icon : undefined
+                 Icon : undefined,
+                 in: true
 
         } 
 
@@ -35,7 +36,7 @@ class App extends React.Component {
 
       
 
-
+    
 // async function
     getweather = async function fetchAsync(e) {
  
@@ -86,7 +87,7 @@ class App extends React.Component {
     lon: "",
     Desc : "",
     Icon : ""
-
+    
 })} 
     
    
@@ -108,7 +109,7 @@ componentDidMount () {
         elem.style.transition = "opacity 2000ms";
         // and set the opacity to 1
     elem.style.opacity = 1;
-    }, 6000);
+    }, 3000);
 
 
 }
@@ -130,6 +131,7 @@ componentDidMount () {
                             WeatherCompTemp = {this.state.temperature}
                             WeatherCompDesc = {this.state.Desc}
                             WeatherCompIcon = {this.state.Icon}
+                            in = {this.state.in}
                         />
                 </div>
                 <div id="map" className="center">
@@ -142,7 +144,8 @@ componentDidMount () {
                 </div>
                 </div>
                 <Circle 
-                       time={2500}
+                       animation="slide-down"
+                       time={1500}
                        color="#FFFAF0"
                        background= "radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%)"
                 />

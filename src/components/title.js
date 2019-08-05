@@ -1,5 +1,4 @@
 import Alert from 'react-bootstrap/Alert'
-
 import React, { useState } from 'react';
 
 
@@ -11,7 +10,7 @@ function AlertDismissibleExample() {
       <Alert variant="danger" onClose={() => setShow(false)} dismissible>
         <Alert.Heading>Attention!!</Alert.Heading>
         <p>
-          Due to how the weather API operates, it only accepts city name and country code. It might return undesired results if there are multiple cities with the same name in the same country. 
+          Due to how the weather API operates, it only accepts city name and ISO code. It might return undesired results if there are multiple cities with the same name in the same country. 
         </p>
       </Alert>
     );
@@ -26,7 +25,7 @@ export default function Titles() {
 
             <AlertDismissibleExample />
             <h1 id="header">Welcome to My Weather App</h1>
-            <h5 id="headerBody"> Please input the city name and country code to see the weather below </h5>
+            <h5 id="headerBody"> Please input the city name and ISO Code to see the weather below </h5>
         </div>
     )
 }

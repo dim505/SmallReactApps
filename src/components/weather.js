@@ -1,13 +1,36 @@
-import React from 'react';
+
 import opps from '../PICS/opps.gif';
+import Fade from 'react-reveal/Zoom';
+
+import React from "react";
+import { Transition } from 'react-transition-group';
 
 
+
+const phases = {
+	entered: {
+		opacity: 1
+	},
+	entering: {
+		opacity: 0
+	},
+	exited: {
+		opacity: 0
+	},
+	exiting: {
+		opacity: 1
+	}
+};
 
 
 export default function Weather(props)  {
-
+                  
         if( props.WeatherCompError){
-                return ( <div className="WeathStyle">  
+
+        return ( 	<Transition in={props.in} appear timeout={500}  >
+                        {status => (
+                                <div className="animation" style={phases[status]}>
+                                                                 <div className="WeathStyle">  
                                 <div className="flex-container">
                                         <div id="left" style={{marginTop: "50px"}}>
                                                 {props.WeatherCompError && <p>{props.WeatherCompError} </p> }
@@ -16,16 +39,20 @@ export default function Weather(props)  {
                                                 <img src={opps} width="200" height="200" />
                                         </div>
                                 </div>
-                        </div>)
-                         
+                        </div>
+                                </div>
+                        )}
+                </Transition>)
+
+
                                    
        
         }  else if (props.WeatherCompCity) 
         {
-                return ( <div className="WeathStyle">  
-                
+                return ( 
+                        <Fade>
+                 <div className="WeathStyle">  
                 <div>
-                
                 {props.WeatherCompCity && <p>{props.WeatherCompCity}, {props.WeatherCompCountry} </p>}
                 <div className="flex-container">
                         <div id="left">
@@ -38,15 +65,13 @@ export default function Weather(props)  {
                 </div>
                 </div>
          </div>
-
-
+         </Fade>
+         
 
                 )
 
         } else {
                 return ( null );
-
-
         }
 
         
