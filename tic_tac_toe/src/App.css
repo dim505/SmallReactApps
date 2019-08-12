@@ -1,0 +1,13 @@
+.board-row:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.square {
+  background: #fff;
+
+  float: left;
+  height: 34px;
+  width: 34px;
+}
