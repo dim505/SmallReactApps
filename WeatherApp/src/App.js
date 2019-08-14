@@ -1,3 +1,4 @@
+//imports all the CSS files, weather components, and 3rd party add ons
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
 import React from 'react';
@@ -16,9 +17,10 @@ class App extends React.Component {
     constructor(props) {
         super(props)
         
+        //binds getweather so it can modify state
         this.getweather = this.getweather.bind(this)
         this.GetIntiWeath = this.GetIntiWeath.bind(this)
-        
+        //setting state of component
         this.state = {
                  error: undefined,
                  temperature: undefined,
@@ -45,27 +47,29 @@ class App extends React.Component {
     getweather = async function fetchAsync(e) {
  
     
-
+        //prevent page refresh when page content is updated
         e.preventDefault();
-
+    //gets city name from input box
     const city = e.target.city.value
+    //gets iso code from input box
     const country = e.target.country.value
+    //formualtes URL
     const URL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + ',' + country + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
     // await response of fetch call
     const response = await fetch(URL);
-    console.log(response)
+    //converts responds to json
     const results = await response.json(); 
     
 
-    
+    //checks if city and country are not blank and the returned response is not an error
     if(city && country && response.status !== 404){
-       
+    //converts temp form K to F
     const temp = Number(( (((results.main.temp - 273.15) * 9)/5) + 32).toFixed(2))
     
-
+    //gets the appropriate icon for the weather
     var IconUrl = "https://openweathermap.org/img/wn/" + results.weather[0].icon + "@2x.png"    
 
-
+    //sets the state to be passed on to the compoents below
     this.setState ({
     error: "",
     temperature: temp,
