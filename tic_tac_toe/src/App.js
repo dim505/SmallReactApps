@@ -1,13 +1,6 @@
 import React from "react";
 import './App.css'
 
-function Square(props) {
-  return (
-    <button className="square" onClick={() => props.onClick()}>
-      {props.value}
-    </button>
-  );
-}
 
 class Board extends React.Component {
   constructor(props) {
@@ -31,12 +24,11 @@ class Board extends React.Component {
     });
   }
 
-  renderSquare(i) {
+  Square(i) {
     return (
-      <Square
-        value={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
-      />
+      <button className="square" onClick={() => this.handleClick(i)}>
+      {this.state.squares[i]}
+    </button>
     );
   }
 
@@ -52,19 +44,19 @@ class Board extends React.Component {
       <div>
         <div>{status}</div>
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+          {this.Square(0)}
+          {this.Square(1)}
+          {this.Square(2)}
         </div>
         <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
+          {this.Square(3)}
+          {this.Square(4)}
+          {this.Square(5)}
         </div>
         <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
+          {this.Square(6)}
+          {this.Square(7)}
+          {this.Square(8)}
         </div>
       </div>
     );
@@ -96,16 +88,8 @@ function CalcWin(squares) {
   }
 }
 
-class Game extends React.Component {
-  render() {
-    return (
-      <div>
-        <Board />
-      </div>
-    );
-  }
-}
 
-export default Game
+
+export default Board
 
 
