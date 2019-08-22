@@ -30,7 +30,8 @@ class App extends React.Component {
                  lon: undefined,
                  Desc : undefined,
                  Icon : undefined,
-                 in: true
+                 in: true,
+                 FiveDayResultsList : []
 
         } 
 
@@ -55,10 +56,14 @@ class App extends React.Component {
     const country = e.target.country.value
     //formualtes URL
     const URL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + ',' + country + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
+    const fiveDayUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + ',' + country + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
     // await response of fetch call
     const response = await fetch(URL);
+    const FiveDayResponse = await fetch(fiveDayUrl);
     //converts responds to json
     const results = await response.json(); 
+    const FiveDayResults = await FiveDayResponse.json(); 
+    console.log(FiveDayResults.list)
     
 
     //checks if city and country are not blank and the returned response is not an error
@@ -78,7 +83,8 @@ class App extends React.Component {
     lat: results.coord.lat,
     lon: results.coord.lon,
     Desc : results.weather[0].description,
-    Icon : IconUrl
+    Icon : IconUrl,
+    FiveDayResultsList : FiveDayResults.list
     })
 
 
@@ -95,8 +101,8 @@ class App extends React.Component {
     lat: "",
     lon: "",
     Desc : "",
-    Icon : ""
-    
+    Icon : "",
+    FiveDayResultsList : []
 })} 
     
    
@@ -116,10 +122,14 @@ GetIntiWeath = async function GetIntiWeath() {
             console.log(lat)
             console.log(lon)
             const URL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
+            const fiveDayUrl  = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
+            
             console.log(URL)
             const response = await fetch(URL);
+            const FiveDayResponse = await fetch(fiveDayUrl);
             console.log(response)
             const results = await response.json();
+            const FiveDayResults = await FiveDayResponse.json(); 
             const temp = Number(( (((results.main.temp - 273.15) * 9)/5) + 32).toFixed(2))
     
 
@@ -134,7 +144,8 @@ GetIntiWeath = async function GetIntiWeath() {
                     lat: position.coords.latitude,
                     lon: position.coords.longitude,
                     Desc : results.weather[0].description,
-                    Icon : IconUrl
+                    Icon : IconUrl,
+                    FiveDayResultsList : FiveDayResults.list
                     })
 			      
             
@@ -188,6 +199,7 @@ componentDidMount () {
                             WeatherCompTemp = {this.state.temperature}
                             WeatherCompDesc = {this.state.Desc}
                             WeatherCompIcon = {this.state.Icon}
+                            WeatherFiveDay = {this.state.FiveDayResultsList}
                             in = {this.state.in}
                         />
                 </div>

@@ -48,12 +48,97 @@ export default function Weather(props)  {
                                    
        
         }  else if (props.WeatherCompCity) 
-        {
+        {   let table = []
+            table.push(<div> <h3>5 Day Hourly Weather Report </h3></div>)
+            var PrevDay 
+            let row = []
+            let RowCounter 
+            var months = {
+                '01' : 'Jan',
+                '02' : 'Feb',
+                '03' : 'Mar',
+                '04' : 'Apr',
+                '05' : 'May',
+                '06' : 'Jun',
+                '07' : 'Jul',
+                '08' : 'Aug',
+                '09' : 'Sep',
+                '10' : 'Oct',
+                '11' : 'Nov',
+                '12' : 'Dec'
+                }
+
+                {props.WeatherFiveDay.map(function(day,index){
+                        var IconUrl = "https://openweathermap.org/img/wn/" + day.weather[0].icon + "@2x.png" ;  
+
+                        
+                        if((props.WeatherFiveDay[index].dt_txt.substring(8,10)) !== PrevDay){
+                                PrevDay = props.WeatherFiveDay[index].dt_txt.substring(8,10)
+                                console.log(props.WeatherFiveDay[index].dt_txt.substring(8,10))
+                                console.log(PrevDay)
+                                RowCounter = RowCounter + 1
+                                table.push(
+                                  <div className="row" key={RowCounter}>       
+                                        {row}
+                                  </div>
+                                )
+                                row = []
+
+
+
+
+                                row.push(<div key={index} className="col"> 
+                                      
+                                <div className="flex-container">
+                        <div id="WeathDateleft">
+                                {months[day.dt_txt.substring(5,7)]} {day.dt_txt.substring(8,10)}
+
+                        </div>
+                        <div id="left">
+                        <p> {Math.round(Number(( (((day.main.temp - 273.15) * 9)/5) + 32).toFixed(2)))} F <br></br>
+                         {day.dt_txt.substring(11,16)} </p>
+                        </div>
+                        <div id="right"> 
+                        <img src={IconUrl} alt="weather icon" title={day.weather[0].description}></img> 
+                        </div>
+                </div>
+                                </div>)
+
+
+
+
+                              }else{ 
+                                row.push(
+                                
+                                <div key={index} className="col"> 
+                                                
+                                                
+                                <div className="flex-container">
+                                <div id="left">
+                                <p> {Math.round(Number(( (((day.main.temp - 273.15) * 9)/5) + 32).toFixed(2)))} F <br></br>
+                                  {day.dt_txt.substring(11,16)} </p>
+                                </div>
+                                <div id="right"> 
+                                <img src={IconUrl} alt="weather icon" title={day.weather[0].description}></img> 
+                                </div>
+                        </div>
+                        </div>)
+                        
+                                     
+                                  
+                              }
+                                                
+                  
+
+        })}
+
+
                 return ( 
-                        <Fade>
+        <Fade>
+                <div>
                  <div className="WeathStyle">  
                 <div>
-                {props.WeatherCompCity && <p>{props.WeatherCompCity}, {props.WeatherCompCountry} </p>}
+                {props.WeatherCompCity && <p>{props.WeatherCompCity}, {props.WeatherCompCountry} Current Weather</p>}
                 <div className="flex-container">
                         <div id="left">
                         {props.WeatherCompTemp && <p>{props.WeatherCompTemp} F</p>}
@@ -64,9 +149,20 @@ export default function Weather(props)  {
                         </div>
                 </div>
                 </div>
+                </div>
+
+                <div className="WeathStyle5Day">
+
+                     {table}         
+                </div>
+                  
+
+              
          </div>
+
          </Fade>
          
+   
 
                 )
 
