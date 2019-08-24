@@ -63,7 +63,7 @@ class App extends React.Component {
     //converts responds to json
     const results = await response.json(); 
     const FiveDayResults = await FiveDayResponse.json(); 
-    console.log(FiveDayResults.list)
+
     
 
     //checks if city and country are not blank and the returned response is not an error
@@ -91,7 +91,7 @@ class App extends React.Component {
 
 } else {     
     
-    
+    //CLEARS OUT ALL THE STATE    
     const ErrMsg = 'Opps!! Something went wrong. Please ensure both fields are filled out and are valid entities'
     await this.setState({
     error: ErrMsg,
@@ -111,31 +111,33 @@ class App extends React.Component {
  
 }
 
-
+//gets the inital weather from geolocation
 GetIntiWeath = async function GetIntiWeath() {
-   
+   //gets if geolocation is supported
     if (navigator.geolocation) {
+        //gets geolocation
         navigator.geolocation.getCurrentPosition(async (position) => {
-
+            //gets latitube
             const lat = position.coords.latitude
+            //gets longitube
             const lon =  position.coords.longitude
-            console.log(lat)
-            console.log(lon)
+            //defines current weather url
             const URL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
+            //defines 5 day hourly URL
             const fiveDayUrl  = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
             
-            console.log(URL)
+           //Gets the results
             const response = await fetch(URL);
             const FiveDayResponse = await fetch(fiveDayUrl);
-            console.log(response)
             const results = await response.json();
             const FiveDayResults = await FiveDayResponse.json(); 
+            //converts from K to F
             const temp = Number(( (((results.main.temp - 273.15) * 9)/5) + 32).toFixed(2))
     
 
             var IconUrl = "https://openweathermap.org/img/wn/" + results.weather[0].icon + "@2x.png" ;  
             
-            
+            //sets state to be passed down to weather comp
             this.setState ({
                     error: "",
                     temperature: temp,
@@ -155,6 +157,7 @@ GetIntiWeath = async function GetIntiWeath() {
 
         });
       } else {
+        //serts
         alert("Geolocation is not supported by this browser.")  }
     
   
@@ -166,15 +169,16 @@ componentDidMount () {
      const elem = ReactDOM.findDOMNode(this);
     // Set the opacity of the element to 0
     elem.style.opacity = 0;
-    
+    //fades in after preloader loads
     setTimeout(() => {
         // Now set a transition on the opacity
         elem.style.transition = "opacity 2000ms";
         // and set the opacity to 1
     elem.style.opacity = 1;
     }, 3000);
-    
+    //calls function to load intial weather
     this.GetIntiWeath()
+    //sets tab name
     document.title = "Weather App"
 
 
@@ -183,6 +187,7 @@ componentDidMount () {
 
     render() {
         return (<React.Fragment>
+            
             <div className="background">
                     
       
@@ -193,6 +198,8 @@ componentDidMount () {
                     
                     <Titles in = {this.state.in}/>
                     <Forms loadWeather={this.getweather} />
+                    
+                </div>    
                     <Weather WeatherCompError = {this.state.error}
                             WeatherCompCity = {this.state.city} 
                             WeatherCompCountry = {this.state.country}
@@ -210,8 +217,9 @@ componentDidMount () {
                             Weatherlon = {this.state.lon}
                             zoom = {10}
                     />
+                
                 </div>
-                </div>
+                
                 <Circle 
                        animation="slide-down"
                        time={1500}

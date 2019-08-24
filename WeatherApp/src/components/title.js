@@ -12,7 +12,7 @@ function AlertDismissibleExample() {
   const [show, setShow] = useState(true);
 
 
-
+//hides alert after 50 seconds
   if (show) {
     setTimeout(() => {
       setShow(false)
@@ -21,7 +21,7 @@ function AlertDismissibleExample() {
     return (
      
 
-
+//defines alert
       <Alert variant="danger" onClose={() => setShow(false)} dismissible>
         <Alert.Heading>Attention!!</Alert.Heading>
         <p>
@@ -35,6 +35,7 @@ function AlertDismissibleExample() {
               
     
   }
+  //returns nothing if exit button is clicked. 
   return <div></div>;
 }
 

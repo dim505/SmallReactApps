@@ -5,7 +5,7 @@ import ReactTooltip from 'react-tooltip'
 export default function Forms (props)
      {
 
-    
+    //this just defines the form, input for city,country and submit button. Upon submit it will call the getweather function
     return (
         
         <form onSubmit={props.loadWeather}>
