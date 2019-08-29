@@ -1,3 +1,4 @@
+/*centers divs on page*/
 .center {
   display: block;
   margin-left: auto;
@@ -7,18 +8,36 @@
 
 }
 
+/*sets text to center on input */
 .form-control {
 	text-align:center;
 	
 	
 }
 
+/*additional animations*/
+.form-control:hover {
+	color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25)
+	
+	
+	
+}
+
+
+
+
+
+/*sets background so it can fade in correctly*/
 .background {
 	opacity: 0;
 	
 	
 }
-
+/*styling for the current weather div */
 .WeathStyle p {
 	margin-bottom: 0px;
 	
@@ -33,10 +52,18 @@
 	font-size: 20px;
 	border: solid black;
     border-radius: 10px;
+	margin-bottom:10px;
 	
 }
 
+/* styling for 5 day hourly div */
 .WeathStyle5Day img:hover{
+
+    border-style: solid;
+    border-color: red;
+}
+
+.WeathStyle5Day img:focus{
 
     border-style: solid;
     border-color: red;
@@ -58,7 +85,7 @@
 	  text-align: center;
 }
 
-
+/*forms structure of weather report */
 .flex-container {
   display: flex;
   justify-content: center;
@@ -72,6 +99,7 @@
 	
 }
 
+/*used to format date */
 #WeathDateleft {
 	
 	float:left;
@@ -84,13 +112,6 @@
 }
 
 
-
-	
-	
-	
-
-
-
 #right {
 	
 		float:right;
@@ -98,6 +119,8 @@
 	
 }
 
+
+/*styling used for the title */
 #header {
 	text-shadow: 2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0,0,0,0.15), 40px 40px 20px rgba(206,89,55,0);
 color: #FF0000;
@@ -106,7 +129,7 @@ background: #FFFFFF;
 	
 }
 
-
+/*styling used for instructions under the title */
 #headerBody {
 	
 color: #444444;
@@ -119,20 +142,8 @@ margin-bottom: 20px;
 }
 
 
-.form-control:hover {
-	color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25)
-	
-	
-	
-}
 
-
-
-
+/*styling used for the preloader */
 .animation {
 	transition: opacity 1s ease;
 }

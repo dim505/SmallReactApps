@@ -8,6 +8,7 @@ import Weather from './components/weather'
 import MapContainer from './components/googlemap'
 import ReactDOM from 'react-dom';
 import {Circle} from 'react-preloaders';
+import LoadingBar from 'react-top-loading-bar'
 
 
 
@@ -31,8 +32,8 @@ class App extends React.Component {
                  Desc : undefined,
                  Icon : undefined,
                  in: true,
-                 FiveDayResultsList : []
-
+                 FiveDayResultsList : [],
+                 loadingBarProgress: 0
         } 
 
 
@@ -40,32 +41,36 @@ class App extends React.Component {
 
     }
 
+    add = value => {
+        this.setState({  loadingBarProgress: this.state.loadingBarProgress + value })
+    }
 
-      
+    complete = () => {this.setState ({loadingBarProgress: 100  }) }
 
-
+    onLoaderFinished = () => {this.setState({ loadingBarProgress: 0})}
 // async function
     getweather = async function fetchAsync(e) {
- 
-    
-        //prevent page refresh when page content is updated
-        e.preventDefault();
+    this.add(10)   
+    //prevent page refresh when page content is updated
+    e.preventDefault();
     //gets city name from input box
     const city = e.target.city.value
     //gets iso code from input box
     const country = e.target.country.value
     //formualtes URL
+    this.add(20)
     const URL = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + ',' + country + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
     const fiveDayUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + ',' + country + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
     // await response of fetch call
     const response = await fetch(URL);
     const FiveDayResponse = await fetch(fiveDayUrl);
+    this.add(33)
+    
     //converts responds to json
     const results = await response.json(); 
     const FiveDayResults = await FiveDayResponse.json(); 
 
     
-
     //checks if city and country are not blank and the returned response is not an error
     if(city && country && response.status !== 404){
     //converts temp form K to F
@@ -73,7 +78,7 @@ class App extends React.Component {
     
     //gets the appropriate icon for the weather
     var IconUrl = "https://openweathermap.org/img/wn/" + results.weather[0].icon + "@2x.png"    
-
+    
     //sets the state to be passed on to the compoents below
     this.setState ({
     error: "",
@@ -87,7 +92,7 @@ class App extends React.Component {
     FiveDayResultsList : FiveDayResults.list
     })
 
-
+    this.complete()
 
 } else {     
     
@@ -103,7 +108,11 @@ class App extends React.Component {
     Desc : "",
     Icon : "",
     FiveDayResultsList : []
-})} 
+    
+})
+this.complete()
+
+} 
     
    
 
@@ -121,16 +130,18 @@ GetIntiWeath = async function GetIntiWeath() {
             const lat = position.coords.latitude
             //gets longitube
             const lon =  position.coords.longitude
+            
             //defines current weather url
             const URL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + lat + '&lon=' + lon + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
             //defines 5 day hourly URL
             const fiveDayUrl  = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&APPID=14b174dcab9bf47b49468e07daa1ff87'
-            
+            this.add(30)
            //Gets the results
             const response = await fetch(URL);
             const FiveDayResponse = await fetch(fiveDayUrl);
             const results = await response.json();
             const FiveDayResults = await FiveDayResponse.json(); 
+            this.add(30)
             //converts from K to F
             const temp = Number(( (((results.main.temp - 273.15) * 9)/5) + 32).toFixed(2))
     
@@ -150,7 +161,7 @@ GetIntiWeath = async function GetIntiWeath() {
                     FiveDayResultsList : FiveDayResults.list
                     })
 			      
-            
+            this.complete()
 
 
 
@@ -195,7 +206,12 @@ componentDidMount () {
     
             
                 <div className="center">
-                    
+                    <LoadingBar
+                    progress={this.state.loadingBarProgress}
+                    height={3}
+                     color='red'
+                     onLoaderFinished={() => this.onLoaderFinished()}
+                         />
                     <Titles in = {this.state.in}/>
                     <Forms loadWeather={this.getweather} />
                     
@@ -208,6 +224,7 @@ componentDidMount () {
                             WeatherCompIcon = {this.state.Icon}
                             WeatherFiveDay = {this.state.FiveDayResultsList}
                             in = {this.state.in}
+                            
                         />
                 </div>
                 <div id="map" className="center">

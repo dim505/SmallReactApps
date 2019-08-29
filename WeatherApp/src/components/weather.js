@@ -3,6 +3,9 @@ import opps from '../PICS/opps.gif';
 //fade effect for weather comp
 import Fade from 'react-reveal/Zoom';
 
+import ReactTooltip from 'react-tooltip'
+
+
 import React from "react";
 //another effect for the error comp.
 import { Transition } from 'react-transition-group';
@@ -96,11 +99,14 @@ export default function Weather(props)  {
                                 //clears out row
                                 row = []
 
-
+                                            
 
                                 //adds first hourly report with date to row                 
-                                row.push(<div key={index} className="col"> 
-                                      
+                                row.push(
+                                
+                                
+                        <div key={index} className="col"> 
+                                  
                                 <div className="flex-container">
                         <div id="WeathDateleft">
                                 {months[day.dt_txt.substring(5,7)]} {day.dt_txt.substring(8,10)}
@@ -111,7 +117,7 @@ export default function Weather(props)  {
                          {day.dt_txt.substring(11,16)} </p>
                         </div>
                         <div id="right"> 
-                        <img src={IconUrl} alt="weather icon" title={day.weather[0].description}></img> 
+                        <img src={IconUrl} data-rh="Top" data-place="top" data-tip={day.weather[0].description} alt="weather icon" title={day.weather[0].description}></img> 
                         </div>
                 </div>
                                 </div>)
@@ -125,14 +131,14 @@ export default function Weather(props)  {
                                 
                                 <div key={index} className="col"> 
                                                 
-                                                
+                                              
                                 <div className="flex-container">
                                 <div id="left">
                                 <p> {Math.round(Number(( (((day.main.temp - 273.15) * 9)/5) + 32).toFixed(2)))} F <br></br>
                                   {day.dt_txt.substring(11,16)} </p>
                                 </div>
                                 <div id="right"> 
-                                <img src={IconUrl} alt="weather icon" title={day.weather[0].description}></img> 
+                                <img src={IconUrl} data-rh="Top" data-place="top" data-tip={day.weather[0].description} alt="weather icon" title={day.weather[0].description}></img> 
                                 </div>
                         </div>
                         </div>)
@@ -168,7 +174,7 @@ export default function Weather(props)  {
                 </div>
 
                 <div className="WeathStyle5Day">
-
+                <ReactTooltip effect="solid" />
                      {table}         
                 </div>
                   

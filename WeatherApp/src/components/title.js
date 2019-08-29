@@ -43,7 +43,7 @@ function AlertDismissibleExample() {
 export default function Titles() {
     return (
         <div>
-
+            
             <AlertDismissibleExample />
             <h1 id="header">Welcome to My Weather App</h1>
             <h5 id="headerBody"> Please input the city name and ISO Code to see the weather below </h5>
