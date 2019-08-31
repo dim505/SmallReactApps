@@ -208,9 +208,9 @@ componentDidMount () {
                 <div className="center">
                     <LoadingBar
                     progress={this.state.loadingBarProgress}
-                    height={3}
-                     color='red'
-                     onLoaderFinished={() => this.onLoaderFinished()}
+                    height={6}
+                    color=	'#0000A0'
+                    onLoaderFinished={() => this.onLoaderFinished()}
                          />
                     <Titles in = {this.state.in}/>
                     <Forms loadWeather={this.getweather} />

@@ -11,3 +11,11 @@
   height: 34px;
   width: 34px;
 }
+
+#title {
+  text-shadow: 2px 2px 2px #ce5937;
+}
+
+.PlayerButton {
+  background-color: lightgreen;
+}
