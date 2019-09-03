@@ -1,5 +1,11 @@
 import React from "react";
-import './App.css'
+import './App.css';
+import Fade from 'react-reveal/Fade';
+import Button from '@material-ui/core/Button';
+import * as Fireworks from 'fireworks-canvas'
+
+
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +19,10 @@ class Board extends React.Component {
     };
   }
 
+  componentDidMount(){
+    document.title = "Tic Tac Toe"
+  }
+  
   SetNumPlayerBtn() {
     if (window.NumOfPlayer === 1) {
       this.setState({ PlayerActBtn: true });
@@ -20,6 +30,8 @@ class Board extends React.Component {
       this.setState({ PlayerActBtn: false });
     }
   }
+
+
 
   //sets the first player to go first
   SetFirstPlayer(i) {
@@ -69,21 +81,16 @@ class Board extends React.Component {
   }
 
   //this reset the board
-  ResetClick() {
-    //gets all the square elements on board
-    var squaress = document.querySelectorAll(".square"),
-      i;
-
-    //clears all the button values
-    for (i = 0; i < squaress.length; ++i) {
-      squaress[i].innerHTML = null;
-    }
+  async ResetClick() {
 
     //clears the state to defaults
-    this.setState({
+    await this.setState({
+      //Fills square array with nulls, will be used to keep track of moves
       squares: Array(9).fill(null),
+      //determines the who is going to go next
       xIsNext: true,
-      PlayerActBtn: false
+      PlayerActBtn: false,
+      XorO: false
     });
     this.status = "";
     window.NumOfPlayer = "";
@@ -125,41 +132,120 @@ class Board extends React.Component {
     });
 
     if (window.NumOfPlayer === 1) {
-      i = this.CompGuess();
-      squares[i] = this.state.xIsNext ? "X" : "O";
+      if (this.state.squares.indexOf(null) === -1 ) {
+          return 
+        }
+          else {
+            i = this.CompGuess();
+        squares[i] = this.state.xIsNext ? "X" : "O";
+  
+        await this.setState({
+          squares: squares,
+          xIsNext: !this.state.xIsNext
+        });
+        
+          }
+        
+        
 
-      await this.setState({
-        squares: squares,
-        xIsNext: !this.state.xIsNext
-      });
+
+
+
+     
+
     }
   }
 
   //strcture of the square
   Square(i) {
-    return (
-      <button
-        className="square btn btn-outline-success"
+    if (this.state.squares[i] !== null) {
+      return (
+        <Button
+      
+        variant="contained"
+        color="primary"
+        className="square"
         onClick={() => this.handleClick(i)}
       >
         {this.state.squares[i]}
-      </button>
-    );
+      </Button>
+
+
+      );
+
+
+    } else {
+
+      return (
+        <Button
+      
+        variant="outlined"
+        className="square"
+        
+        onClick={() => this.handleClick(i)}
+      >
+        {this.state.squares[i]}
+      </Button>
+
+
+      );
+      
+
+    }
+
   }
 
-  SetSquareColor(i) {
-    console.log(i);
-  }
+  
 
   render() {
-    //checks if there is a winner
+    
+
+
+    //checks if there is a   winner
     const winner = CalcWin(this.state.squares);
     let status;
 
     //if there is a winner, it shows the winnter
     if (winner) {
+      // needs at least a container element, you can provide options
+      // (options are optional, defaults defined below)
+      
+      
+      var height = document.getElementById('center').offsetHeight + "px"
+      
+      document.getElementById('container').style.height = height 
+      const container = document.getElementById('container')
+      const options = {
+        maxRockets: 3,            // max # of rockets to spawn
+        rocketSpawnInterval: 150, // millisends to check if new rockets should spawn
+        numParticles: 100,        // number of particles to spawn when rocket explodes (+0-10)
+        explosionMinHeight: 0.1 ,  // percentage. min height at which rockets can explode
+        explosionMaxHeight: 1,  // percentage. max height before a particle is exploded
+        explosionChance: 0.08     // chance in each tick the rocket will explode
+      }
+
+      // instantiate the class and call start
+      // this returns a disposable - calling it will stop fireworks.
+      const fireworks = new Fireworks(container, options) 
+    
+    
+      fireworks.start()
+
+
+      
+
+
       status = "Winner: " + winner;
+      setTimeout(function(){ fireworks.stop() 
+      
+        var elements = document.getElementsByTagName('canvas')
+        while (elements[0]) elements[0].parentNode.removeChild(elements[0])
+      
+      }, 5000);
+
+
     }
+
     //else displays the next person to go
     else if (this.state.squares.indexOf(null) === -1) {
       status = "No Winner :c";
@@ -167,42 +253,57 @@ class Board extends React.Component {
       status = "Your Turn: " + (this.state.xIsNext ? "X" : "O");
     }
 
+
+    
+
+    
     return (
       <div>
+       
+      <Fade right cascade>
+       
+      <div id="center">
         <h1 id="title"> Welcome to My Tic Tac Toe App </h1>
         <div>
-          <button
-            className={this.state.PlayerActBtn ? "PlayerButton" : ""}
+
+          <h2 className="headerTwo">Please Select Player Mode </h2>
+          <Button
+            variant={this.state.PlayerActBtn ? "contained" : "outlined"}
+            color={this.state.PlayerActBtn ? "primary" : ""}
             onClick={() => this.NumOfPlayer("1")}
           >
             Single Player
-          </button>
-          <button
-            className={this.state.PlayerActBtn ? "" : "PlayerButton"}
+          </Button>
+          <Button
+            variant={this.state.PlayerActBtn ? "outlined" : "contained"}
+            color={this.state.PlayerActBtn ? "" : "primary"}
             onClick={() => this.NumOfPlayer("2")}
           >
             {" "}
             Multiplayer{" "}
-          </button>
+          </Button>
         </div>
         <div>
-          <h4> Who is First? </h4>
-          <button
-            className={this.state.XorO ? "PlayerButton" : ""}
+          <h2 className="headerTwo"> Who Goes First? </h2>
+          <Button
+            variant={this.state.XorO ? "contained" : "outlined"}
+            color={this.state.XorO ? "primary" : ""}
             onClick={() => this.SetFirstPlayer("X")}
           >
-            {" "}
-            X{" "}
-          </button>
-          <button
-            className={this.state.XorO ? "" : "PlayerButton"}
+          
+            X
+          </Button>
+          <Button
+          
+            variant={this.state.XorO ? "outlined" : "contained"}
+            color={this.state.XorO ? "" : "primary"}
             onClick={() => this.SetFirstPlayer("O")}
           >
-            {" "}
-            O{" "}
-          </button>
+            
+            O
+          </Button> 
         </div>
-        <div>{status}</div> <br />
+        <div className="MarginStyle headerTwo" ><h3>{status}</h3></div> 
         <div className="board-row">
           {this.Square(0)}
           {this.Square(1)}
@@ -217,8 +318,12 @@ class Board extends React.Component {
           {this.Square(6)}
           {this.Square(7)}
           {this.Square(8)}
-        </div>
-        <button onClick={() => this.ResetClick()}> Reset? </button>
+        </div> 
+        <Button className="width MarginStyle" variant="outlined" size="large" onClick={() => this.ResetClick()}> Reset? </Button> 
+        
+      </div>
+      </Fade>
+      <div id="container"></div>
       </div>
     );
   }
