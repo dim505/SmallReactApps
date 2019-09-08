@@ -3,8 +3,8 @@ import './App.css';
 import Fade from 'react-reveal/Fade';
 import Button from '@material-ui/core/Button';
 import * as Fireworks from 'fireworks-canvas'
-
-
+import Snackbar from '@material-ui/core/Snackbar';
+import Jello from 'react-reveal/Jello';
 
 class Board extends React.Component {
   constructor(props) {
@@ -15,8 +15,11 @@ class Board extends React.Component {
       //determines the who is going to go next
       xIsNext: true,
       PlayerActBtn: false,
-      XorO: false
+      XorO: false,
+      open: false
     };
+
+    this.handleClose = this.handleClose.bind(this);
   }
 
   componentDidMount(){
@@ -54,14 +57,17 @@ class Board extends React.Component {
         });
       }
     } else {
-      alert(
-        "Sorry Game is in session, please reset Game if you want to change the order"
-      );
+      if (this.state.open !== true) {
+        this.setState({
+          open: true
+        });
+      }
+
     }
   }
 
   NumOfPlayer(i) {
-    debugger;
+   
     if (
       this.state.squares.indexOf("X") === -1 &&
       this.state.squares.indexOf("O") === -1
@@ -74,9 +80,14 @@ class Board extends React.Component {
         this.SetNumPlayerBtn();
       }
     } else {
-      alert(
-        "Sorry Game is in session, please reset Game if you want to change the number of players"
-      );
+        if (this.state.open !== true) {
+          this.setState({
+            open: true
+          })
+        }
+;
+
+     
     }
   }
 
@@ -109,7 +120,6 @@ class Board extends React.Component {
   }
 
   async handleClick(i) {
-    debugger;
     //clears a new array
     const squares = this.state.squares.slice();
 
@@ -156,10 +166,21 @@ class Board extends React.Component {
     }
   }
 
+   async handleClose() {
+
+    await this.setState({
+     open: false
+     
+   });
+
+
+ }
+
   //strcture of the square
   Square(i) {
     if (this.state.squares[i] !== null) {
       return (
+
         <Button
       
         variant="contained"
@@ -207,25 +228,22 @@ class Board extends React.Component {
 
     //if there is a winner, it shows the winnter
     if (winner) {
-      // needs at least a container element, you can provide options
-      // (options are optional, defaults defined below)
-      
+
       
       var height = document.getElementById('center').offsetHeight + "px"
       
       document.getElementById('container').style.height = height 
       const container = document.getElementById('container')
       const options = {
-        maxRockets: 3,            // max # of rockets to spawn
-        rocketSpawnInterval: 150, // millisends to check if new rockets should spawn
-        numParticles: 100,        // number of particles to spawn when rocket explodes (+0-10)
-        explosionMinHeight: 0.1 ,  // percentage. min height at which rockets can explode
-        explosionMaxHeight: 1,  // percentage. max height before a particle is exploded
-        explosionChance: 0.08     // chance in each tick the rocket will explode
+        maxRockets: 3,            
+        rocketSpawnInterval: 150, 
+        numParticles: 100,        
+        explosionMinHeight: 0.1 ,  
+        explosionMaxHeight: 1,  
+        explosionChance: 0.08     
       }
 
-      // instantiate the class and call start
-      // this returns a disposable - calling it will stop fireworks.
+     
       const fireworks = new Fireworks(container, options) 
     
     
@@ -248,32 +266,51 @@ class Board extends React.Component {
 
     //else displays the next person to go
     else if (this.state.squares.indexOf(null) === -1) {
-      status = "No Winner :c";
+      
+      status = "No Winner ☹";
     } else {
       status = "Your Turn: " + (this.state.xIsNext ? "X" : "O");
     }
 
 
-    
+
+  
 
     
     return (
       <div>
-       
+        <Snackbar
+        anchorOrigin={  {vertical: 'top', horizontal: 'center'} }
+        open={this.state.open}
+        onClose={this.handleClose}
+        ContentProps={{
+          'aria-describedby': 'message-id',
+        }}
+        message={<span id="message-id">Sorry, game is in session. Please reset game if you want to change any options</span>}
+      />
+      
+      
       <Fade right cascade>
-       
       <div id="center">
         <h1 id="title"> Welcome to My Tic Tac Toe App </h1>
-        <div>
+        
 
           <h2 className="headerTwo">Please Select Player Mode </h2>
-          <Button
-            variant={this.state.PlayerActBtn ? "contained" : "outlined"}
-            color={this.state.PlayerActBtn ? "primary" : ""}
-            onClick={() => this.NumOfPlayer("1")}
-          >
-            Single Player
-          </Button>
+          <div className="flex-grid"> 
+         
+          
+          <Jello when={this.state.open}> 
+          <div className="left">
+                <Button
+                  variant={this.state.PlayerActBtn ? "contained" : "outlined"}
+                  color={this.state.PlayerActBtn ? "primary" : ""}
+                  onClick={() => this.NumOfPlayer("1")}
+                >
+                  Single Player
+                </Button>
+                </div>
+
+          <div className="right">
           <Button
             variant={this.state.PlayerActBtn ? "outlined" : "contained"}
             color={this.state.PlayerActBtn ? "" : "primary"}
@@ -282,9 +319,15 @@ class Board extends React.Component {
             {" "}
             Multiplayer{" "}
           </Button>
+          </div>
+          </Jello>
         </div>
-        <div>
+
+        <div> 
           <h2 className="headerTwo"> Who Goes First? </h2>
+          <div className="flex-grid"> 
+          <Jello when={this.state.open}> 
+          <div className="left">
           <Button
             variant={this.state.XorO ? "contained" : "outlined"}
             color={this.state.XorO ? "primary" : ""}
@@ -293,6 +336,8 @@ class Board extends React.Component {
           
             X
           </Button>
+          </div>
+          <div className="right">
           <Button
           
             variant={this.state.XorO ? "outlined" : "contained"}
@@ -302,7 +347,14 @@ class Board extends React.Component {
             
             O
           </Button> 
+          </div>
+          </Jello>
+          </div>
         </div>
+
+
+
+
         <div className="MarginStyle headerTwo" ><h3>{status}</h3></div> 
         <div className="board-row">
           {this.Square(0)}
@@ -319,10 +371,16 @@ class Board extends React.Component {
           {this.Square(7)}
           {this.Square(8)}
         </div> 
-        <Button className="width MarginStyle" variant="outlined" size="large" onClick={() => this.ResetClick()}> Reset? </Button> 
+        <Button className="width MarginStyle" variant="outlined" size="large" onClick={() => this.ResetClick()}> Reset Game </Button> 
         
       </div>
+      
       </Fade>
+
+
+
+
+
       <div id="container"></div>
       </div>
     );

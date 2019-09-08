@@ -66,6 +66,15 @@ container {
 	
 	
 }
-	
-	
-	
+
+.flex-grid {
+  display: flex;
+}
+
+.left {
+	margin-left:auto;
+}
+
+.right {
+	margin-right:auto;
+}
