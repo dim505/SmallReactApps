@@ -5,6 +5,15 @@ import Button from '@material-ui/core/Button';
 import * as Fireworks from 'fireworks-canvas'
 import Snackbar from '@material-ui/core/Snackbar';
 import Jello from 'react-reveal/Jello';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+
+
+
 
 class Board extends React.Component {
   constructor(props) {
@@ -12,21 +21,32 @@ class Board extends React.Component {
     this.state = {
       //Fills square array with nulls, will be used to keep track of moves
       squares: Array(9).fill(null),
-      //determines the who is going to go next
+      //determines the who is going to go next after the first player
       xIsNext: true,
+      //highlights the number of players who is going to play (single or mutli) then select the appropriate BTN
       PlayerActBtn: false,
+      //determines if X is going to first or if O is going to go first
       XorO: false,
-      open: false
+      //used to determine when the error pop up is going to occurr
+      open: false,
+      //used to determine when the reset dialog pop up is going to occurr
+      ResetOpen: false
     };
-
+    //function used to  close out error pop up
     this.handleClose = this.handleClose.bind(this);
+    //function used to set flag to bring up the Comfirm reset dialog pop up
+    this.ResetHandleClose = this.ResetHandleClose.bind(this);
+    //function used to actually set the game if pressed reset 
+    this.ResetGame = this.ResetGame.bind(this);
   }
 
   componentDidMount(){
+    //sets tab title
     document.title = "Tic Tac Toe"
   }
   
   SetNumPlayerBtn() {
+    //this sets the flag to select which button would be selected  (single or multiplayer)
     if (window.NumOfPlayer === 1) {
       this.setState({ PlayerActBtn: true });
     } else {
@@ -45,18 +65,23 @@ class Board extends React.Component {
       //if pressed X, X is going to go first
       if (i === "X") {
         this.setState({
+          //determines who going to go next with each turn
           xIsNext: true,
+          //this determines which button is going to get high lighted first X or O 
           XorO: true
         });
       }
       //else O is set to go first
       else {
         this.setState({
+          //determines who going to go next with each turn
           xIsNext: false,
+          //this determines which button is going to get high lighted first X or O 
           XorO: false
         });
       }
     } else {
+      //this sets open to true so the error box will appear
       if (this.state.open !== true) {
         this.setState({
           open: true
@@ -67,19 +92,25 @@ class Board extends React.Component {
   }
 
   NumOfPlayer(i) {
-   
+    //makes sure a game is not in progress
     if (
       this.state.squares.indexOf("X") === -1 &&
       this.state.squares.indexOf("O") === -1
     ) {
+      //
       if (i === "1") {
+        //sets the number of players global variable 
         window.NumOfPlayer = 1;
+        //call this function to set the flag to highlight the correct button
         this.SetNumPlayerBtn();
       } else {
+         //sets the number of players global variable 
         window.NumOfPlayer = 2;
+        //call this function to set the flag to highlight the correct button (single button or mutlit)
         this.SetNumPlayerBtn();
       }
     } else {
+        //if game is in progress, sets open to true so error box appears
         if (this.state.open !== true) {
           this.setState({
             open: true
@@ -91,31 +122,50 @@ class Board extends React.Component {
     }
   }
 
-  //this reset the board
+  //sets flag to true so the confirm reset game dialog appears
   async ResetClick() {
-
-    //clears the state to defaults
-    await this.setState({
-      //Fills square array with nulls, will be used to keep track of moves
-      squares: Array(9).fill(null),
-      //determines the who is going to go next
-      xIsNext: true,
-      PlayerActBtn: false,
-      XorO: false
-    });
-    this.status = "";
-    window.NumOfPlayer = "";
+    await this.setState({ResetOpen: true });
+      
   }
 
+  //IF pressed reset, this function is called resetting the game
+ ResetGame() {
+
+    //clears the state to defaults
+     this.setState({
+    //Fills square array with nulls, will be used to keep track of moves
+    squares: Array(9).fill(null),
+    //determines the who is going to go next
+    xIsNext: true,
+    //determines what button to highlight single player or mutli
+    PlayerActBtn: false,
+    //determines what button is going to get high lighted. X or O
+    XorO: false
+  });
+  //resets your turn/winner status
+  this.status = "";
+  //resets the number of players selected
+  window.NumOfPlayer = "";
+  //calls function to close the reset game comfirm dialog
+  this.ResetHandleClose()
+
+
+
+}
+
+
+
+  //function to generate computer geuss
   CompGuess(CompGuess) {
+    //copies current positions of board to new array
     const squares = this.state.squares.slice();
 
-    //fix issue with it generating number until it gets a null
-
+    
+    //generates a random number until the generated number finds an emtpy spot on the board
     do {
       CompGuess = Math.floor(Math.random() * 9);
     } while (squares[CompGuess] !== null);
-
+    //returns the number
     return CompGuess;
   }
 
@@ -140,17 +190,22 @@ class Board extends React.Component {
       //changes flag to show next person is up
       xIsNext: !this.state.xIsNext
     });
-
+    //
     if (window.NumOfPlayer === 1) {
+      //if BOARD IS full, it returns nothing
       if (this.state.squares.indexOf(null) === -1 ) {
           return 
         }
           else {
+            //gets computer guess
             i = this.CompGuess();
-        squares[i] = this.state.xIsNext ? "X" : "O";
+            //updates sqaure with users turn
+            squares[i] = this.state.xIsNext ? "X" : "O";
   
         await this.setState({
+          //updates board
           squares: squares,
+          //switches for next player
           xIsNext: !this.state.xIsNext
         });
         
@@ -166,6 +221,7 @@ class Board extends React.Component {
     }
   }
 
+    //function that automaticly closes error pop up
    async handleClose() {
 
     await this.setState({
@@ -176,8 +232,22 @@ class Board extends React.Component {
 
  }
 
+   //function that automaticly closes the reset game confirm dialog
+ async ResetHandleClose() {
+
+  await this.setState({
+    ResetOpen: false
+   
+ });
+
+
+}
+
+
+
   //strcture of the square
   Square(i) {
+    //returns blue square if button pressed has a value
     if (this.state.squares[i] !== null) {
       return (
 
@@ -196,7 +266,7 @@ class Board extends React.Component {
 
 
     } else {
-
+      //returns a blank sqaure if pressed say if the game is over
       return (
         <Button
       
@@ -226,14 +296,16 @@ class Board extends React.Component {
     const winner = CalcWin(this.state.squares);
     let status;
 
-    //if there is a winner, it shows the winnter
+    //if there is a winner, it shows the winner status
     if (winner) {
 
-      
+      //gets height of root
       var height = document.getElementById('center').offsetHeight + "px"
-      
+      //sets container height for fireworks
       document.getElementById('container').style.height = height 
+      //gets container object
       const container = document.getElementById('container')
+      //specifies various parameters
       const options = {
         maxRockets: 3,            
         rocketSpawnInterval: 150, 
@@ -243,18 +315,22 @@ class Board extends React.Component {
         explosionChance: 0.08     
       }
 
-     
+      //created an object from various parameters
       const fireworks = new Fireworks(container, options) 
     
-    
+      //starts the fireworks
       fireworks.start()
 
 
       
 
-
+      //updates the status
       status = "Winner: " + winner;
-      setTimeout(function(){ fireworks.stop() 
+
+      //stops fireworks after 5 seconds and removes canvas. <<used to display fireworks
+      setTimeout(function(){
+        
+        fireworks.stop() 
       
         var elements = document.getElementsByTagName('canvas')
         while (elements[0]) elements[0].parentNode.removeChild(elements[0])
@@ -264,10 +340,11 @@ class Board extends React.Component {
 
     }
 
-    //else displays the next person to go
+    //displays if there is a tie
     else if (this.state.squares.indexOf(null) === -1) {
       
       status = "No Winner ☹";
+    //else displays the next person to go
     } else {
       status = "Your Turn: " + (this.state.xIsNext ? "X" : "O");
     }
@@ -289,6 +366,29 @@ class Board extends React.Component {
         message={<span id="message-id">Sorry, game is in session. Please reset game if you want to change any options</span>}
       />
       
+      <Dialog
+        open={this.state.ResetOpen}
+        onClose={this.ResetHandleClose}
+        
+      >
+        <DialogTitle style={{ cursor: 'move' }}>
+          Reset Tic Tac Toe Game
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to reset the game?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.ResetHandleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={this.ResetGame} color="primary">
+            Reset
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       
       <Fade right cascade>
       <div id="center">
