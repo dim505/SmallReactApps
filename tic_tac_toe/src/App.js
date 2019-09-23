@@ -30,7 +30,9 @@ class Board extends React.Component {
       //used to determine when the error pop up is going to occurr
       open: false,
       //used to determine when the reset dialog pop up is going to occurr
-      ResetOpen: false
+      ResetOpen: false,
+      //keeps track if fireworks went off already
+      AlreadyFired: false
     };
     //function used to  close out error pop up
     this.handleClose = this.handleClose.bind(this);
@@ -68,7 +70,7 @@ class Board extends React.Component {
           //determines who going to go next with each turn
           xIsNext: true,
           //this determines which button is going to get high lighted first X or O 
-          XorO: true
+          XorO: false
         });
       }
       //else O is set to go first
@@ -77,7 +79,7 @@ class Board extends React.Component {
           //determines who going to go next with each turn
           xIsNext: false,
           //this determines which button is going to get high lighted first X or O 
-          XorO: false
+          XorO: true
         });
       }
     } else {
@@ -140,7 +142,9 @@ class Board extends React.Component {
     //determines what button to highlight single player or mutli
     PlayerActBtn: false,
     //determines what button is going to get high lighted. X or O
-    XorO: false
+    XorO: false,
+    //keeps track if fireworks went off already
+    AlreadyFired: false
   });
   //resets your turn/winner status
   this.status = "";
@@ -299,27 +303,6 @@ class Board extends React.Component {
     //if there is a winner, it shows the winner status
     if (winner) {
 
-      //gets height of root
-      var height = document.getElementById('center').offsetHeight + "px"
-      //sets container height for fireworks
-      document.getElementById('container').style.height = height 
-      //gets container object
-      const container = document.getElementById('container')
-      //specifies various parameters
-      const options = {
-        maxRockets: 3,            
-        rocketSpawnInterval: 150, 
-        numParticles: 100,        
-        explosionMinHeight: 0.1 ,  
-        explosionMaxHeight: 1,  
-        explosionChance: 0.08     
-      }
-
-      //created an object from various parameters
-      const fireworks = new Fireworks(container, options) 
-    
-      //starts the fireworks
-      fireworks.start()
 
 
       
@@ -327,16 +310,50 @@ class Board extends React.Component {
       //updates the status
       status = "Winner: " + winner;
 
-      //stops fireworks after 5 seconds and removes canvas. <<used to display fireworks
-      setTimeout(function(){
-        
-        fireworks.stop() 
+     if (this.state.AlreadyFired === false) {
+                  //gets height of root
+                  var height = document.getElementById('center').offsetHeight + "px"
+                  //sets container height for fireworks
+                  document.getElementById('container').style.height = height 
+                  //gets container object
+                  const container = document.getElementById('container')
+                  //specifies various parameters
+                  const options = {
+                    maxRockets: 3,            
+                    rocketSpawnInterval: 150, 
+                    numParticles: 100,        
+                    explosionMinHeight: 0.1 ,  
+                    explosionMaxHeight: 1,  
+                    explosionChance: 0.08     
+                  }
+            
+                  //created an object from various parameters
+                  const fireworks = new Fireworks(container, options) 
+                
+                  //starts the fireworks
+                  fireworks.start()
       
-        var elements = document.getElementsByTagName('canvas')
-        while (elements[0]) elements[0].parentNode.removeChild(elements[0])
+                  
       
-      }, 5000);
+            //stops fireworks after 5 seconds and removes canvas. <<used to display fireworks
+            setTimeout(function(){
+              
+              fireworks.stop() 
+            
+              var elements = document.getElementsByTagName('canvas')
+              while (elements[0]) elements[0].parentNode.removeChild(elements[0])
+            
+            }, 5000);
+      
+            //sets flag to true so you know fireworks been fired already
+            this.setState ({
+             AlreadyFired: true
+            })
 
+
+     }
+
+         
 
     }
 
@@ -429,8 +446,9 @@ class Board extends React.Component {
           <Jello when={this.state.open}> 
           <div className="left">
           <Button
-            variant={this.state.XorO ? "contained" : "outlined"}
-            color={this.state.XorO ? "primary" : ""}
+
+            variant={this.state.XorO ? "outlined" : "contained"}
+            color={this.state.XorO ? "" : "primary"}
             onClick={() => this.SetFirstPlayer("X")}
           >
           
@@ -440,8 +458,8 @@ class Board extends React.Component {
           <div className="right">
           <Button
           
-            variant={this.state.XorO ? "outlined" : "contained"}
-            color={this.state.XorO ? "" : "primary"}
+            variant={this.state.XorO ? "contained" : "outlined"}
+            color={this.state.XorO ? "primary" : ""}
             onClick={() => this.SetFirstPlayer("O")}
           >
             
