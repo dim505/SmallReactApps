@@ -5,84 +5,69 @@
   margin-right: auto;
   width: 75%;
   text-align: center;
-
 }
 
 /*sets text to center on input */
 .form-control {
-	text-align:center;
-	
-	
+  text-align: center;
 }
 
 /*additional animations*/
 .form-control:hover {
-	color: #495057;
-    background-color: #fff;
-    border-color: #80bdff;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25)
-	
-	
-	
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
-
-
-
-
 
 /*sets background so it can fade in correctly*/
 .background {
-	opacity: 0;
-	
-	
+  opacity: 0;
 }
 /*styling for the current weather div */
 .WeathStyle p {
-	margin-bottom: 0px;
-	
-	
+  margin-bottom: 0px;
 }
 
 .WeathStyle {
-	margin-top: 10px;	
-	text-shadow: 0px 3px 3px rgba(255,255,255,0.5), 2px 2px 2px rgba(206,89,55,0);
-	color: #1246FF;
-	background: #FFFFFF;
-	font-size: 20px;
-	border: solid black;
-    border-radius: 10px;
-	margin-bottom:10px;
-	
+  margin-top: 10px;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5),
+    2px 2px 2px rgba(206, 89, 55, 0);
+  color: #1246ff;
+  background: #ffffff;
+  font-size: 20px;
+  border: solid black;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 /* styling for 5 day hourly div */
-.WeathStyle5Day img:hover{
-
-    border-style: solid;
-    border-color: red;
+.WeathStyle5Day img:hover {
+  border-style: solid;
+  border-color: red;
 }
 
-.WeathStyle5Day img:focus{
-
-    border-style: solid;
-    border-color: red;
+.WeathStyle5Day img:focus {
+  border-style: solid;
+  border-color: red;
 }
-	
+
 .WeathStyle5Day {
-	margin-top: 10px;	
-	margin-bottom:10px;	
-	text-shadow: 0px 3px 3px rgba(255,255,255,0.5), 2px 2px 2px rgba(206,89,55,0);
-	color: #1246FF;
-	background: #FFFFFF;
-	font-size: 20px;
-	border: solid black;
-    border-radius: 10px;
-	    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 99%;
-	  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.5),
+    2px 2px 2px rgba(206, 89, 55, 0);
+  color: #1246ff;
+  background: #ffffff;
+  font-size: 20px;
+  border: solid black;
+  border-radius: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 99%;
+  text-align: center;
 }
 
 /*forms structure of weather report */
@@ -91,63 +76,47 @@
   justify-content: center;
 }
 
-
 #left {
-	
-	float:left;
-	margin-top: 15px;
-	
+  float: left;
+  margin-top: 15px;
 }
 
 /*used to format date */
 #WeathDateleft {
-	
-	float:left;
-	margin-top: 15px;
-	margin-left: 15px;
-	margin-right: 15px;
-	margin-bottom: 15px;
-	color: red;
-	
+  float: left;
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+  color: red;
 }
-
 
 #right {
-	
-		float:right;
-
-	
-}
-
-
-/*styling used for the title */
-#header {
-	text-shadow: 2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0,0,0,0.15), 40px 40px 20px rgba(206,89,55,0);
-color: #FF0000;
-background: #FFFFFF;
-	
-	
+  float: right;
 }
 
 /*styling used for instructions under the title */
 #headerBody {
-	
-color: #444444;
-background: #FFFFFF;
-text-shadow: 1px 0px 1px #CCCCCC, 0px 1px 1px #EEEEEE, 2px 1px 1px #CCCCCC, 1px 2px 1px #EEEEEE, 3px 2px 1px #CCCCCC, 2px 3px 1px #EEEEEE, 4px 3px 1px #CCCCCC, 3px 4px 1px #EEEEEE, 5px 4px 1px #CCCCCC, 4px 5px 1px #EEEEEE, 6px 5px 1px #CCCCCC, 5px 6px 1px #EEEEEE, 7px 6px 1px #CCCCCC;
-color: #444444;
-background: #FFFFFF;
-margin-bottom: 20px;
-	
+  color: #444444;
+
+  margin-bottom: 20px;
 }
-
-
 
 /*styling used for the preloader */
 .animation {
-	transition: opacity 1s ease;
+  transition: opacity 1s ease;
 }
 
+/*CSS styling override for tour guide */
+.mask {
+  opacity: 0.7;
+}
 
-
-
+.MapStyle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  text-align: center;
+  height: 300px;
+}
