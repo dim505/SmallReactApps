@@ -10,6 +10,7 @@ import ReactDOM from "react-dom";
 import { Circle } from "react-preloaders";
 import LoadingBar from "react-top-loading-bar";
 import Tour from "reactour";
+import SnackBar from "./components/SnackBar";
 
 const tourConfig = [
   {
@@ -19,16 +20,16 @@ const tourConfig = [
   },
   {
     selector: '[data-tut="reactour__City"]',
-    content: `Please enter the city`,
+    content: `This is where you enter the city`,
   },
   {
     selector: '[data-tut="reactour_CountryCode"]',
-    content: `Please enter the country code. (CA for canada
+    content: `This is where you enter the country code. (CA for canada
               and US for USA)`,
   },
   {
     selector: '[data-tut="reactour__Submit"]',
-    content: `Now Click Submit!`,
+    content: `This is where you click Submit!`,
   },
   {
     selector: '[data-tut="reactour__CurrentWeather"]',
@@ -65,6 +66,8 @@ class App extends React.Component {
       FiveDayResultsList: [],
       loadingBarProgress: 0,
       isTourOpen: false,
+      OpenNoti: false,
+      Message: "",
     };
   }
 
@@ -82,8 +85,22 @@ class App extends React.Component {
     this.setState({ loadingBarProgress: 0 });
   };
 
+  //opens notification
+  OpenNoti = (Message) => {
+    this.setState({
+      OpenNoti: true,
+      Message: Message,
+    });
+  };
+
+  //closes notification
+  CloseNoti = () => {
+    this.setState({
+      OpenNoti: false,
+    });
+  };
+
   OpenTour = () => {
-    console.log("test");
     this.setState({ isTourOpen: true });
   };
 
@@ -248,6 +265,8 @@ class App extends React.Component {
     this.GetIntiWeath();
     //sets tab name
     document.title = "Weather App";
+
+    this.OpenNoti("Please Click the Question Mark to get a Tour");
   }
 
   render() {
@@ -292,6 +311,12 @@ class App extends React.Component {
           rounded={5}
           onAfterOpen={this.disableBody}
           onBeforeClose={this.enableBody}
+        />
+
+        <SnackBar
+          OpenNoti={this.state.OpenNoti}
+          CloseNoti={this.CloseNoti}
+          message={this.state.Message}
         />
 
         <Circle

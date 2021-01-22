@@ -4,11 +4,14 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.4.0",
+    "@material-ui/icons": "^4.9.1",
     "fireworks-canvas": "^2.3.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-reveal": "^1.2.2",
-    "react-scripts": "3.1.0"
+    "react-scripts": "3.1.0",
+    "reactour": "^1.18.0",
+    "styled-components": "^5.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
