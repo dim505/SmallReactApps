@@ -1,0 +1,50 @@
+                <div className="ItemSpacing">
+                  <FormControlLabel
+                    control={<Checkbox name="checkedB" color="primary" />}
+                    label="Full Time"
+                  />
+                </div>
+
+                <Typography variant="button" gutterBottom>
+                  <b> LOCATION </b>
+                </Typography>
+                <div className="ItemSpacing">
+                  <div className="SearchBar">
+                    <InputBase
+                      startAdornment={
+                        <PublicOutlinedIcon
+                          classes={{ root: "SearchBarIcon" }}
+                        />
+                      }
+                      classes={{
+                        root: "SearchInputBase"
+                      }}
+                      value={SearchTerm}
+                      fullwidth={true}
+                      onChange={(event) => {
+                        SetSearchTerm(event.target.value);
+                      }}
+                      id="SeachField"
+                      placeholder="City, state, zipcode or country"
+                      inputProps={{ "aria-label": "search" }}
+                    />
+                  </div>
+                </div>
+
+                <RadioGroup aria-label="gender" name="gender1">
+                  <FormControlLabel
+                    value="female"
+                    control={<Radio />}
+                    label="Female"
+                  />
+                  <FormControlLabel
+                    value="male"
+                    control={<Radio />}
+                    label="Male"
+                  />
+                  <FormControlLabel
+                    value="other"
+                    control={<Radio />}
+                    label="Other"
+                  />
+                </RadioGroup>
