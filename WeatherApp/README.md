@@ -4,7 +4,7 @@ Currently, it gets the current weather of a city using the city name and ISO cod
 please click allow when it requests your location for geolocation to work correctly. It is formated using React JS, Bootstrap and CSS. It has a tour mode giving the run down on how to use the application.
 
 Please see my Weather App live now:
-https://weatherapps.azurewebsites.net
+https://reactjstictacandweatherap.azurewebsites.net/
 
 One technicality I noticed is if you insert an invalid country, the API will default to the US as a country.
 

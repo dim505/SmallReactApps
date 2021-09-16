@@ -4,4 +4,4 @@ Lastly, its written in React JS (Material UI)
 
 Please see my game live:
 
-https://tictactoe123.azurewebsites.net
+https://reacttictactoe.azurewebsites.net/
