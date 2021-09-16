@@ -10,7 +10,7 @@ import { observer } from "mobx-react";
 
 import PageCounter from "./PageCounter";
 
-//Menu that pops up to filter down the news sources
+//Menu that pops up to filter down the news sources from select source button
 const NewsMenu = () => {
   const appState = useContext(AppStateContext);
   //keeps track of what items are being checked off to filter

@@ -1,137 +1,101 @@
 #root {
-   
-    height: auto;
-    width: 100vw;
-
+  height: auto;
+  width: 100vw;
 }
-
 body {
-
   overflow-x: hidden;
-}
-
-#bodyContent{
-
-  width: 90%;  
-  margin: auto
-}
-
-#PageTitle {
-    padding: 20px 0px 20px;
-}
-
-#SearchParent {
- 
-    border-radius: 20px;
-    background-image: url("https://www.pixel4k.com/wp-content/uploads/2019/06/singapore-city-skyline-4k_1560535789.jpg");
-    width: 100%;
-    height: 300px;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-
-@mixin ItemEnd {
-  display: flex;
-  justify-content: space-between;
-}
-
-.ItemEnd {
-  @include ItemEnd;
-
-}
-.SearchBar {
-  @include ItemEnd;
-  background-color: white;
-  border-radius: 5px;
-  width: 70%;
-  padding: 10px;
-
-
-  .SearchInputBase {
-      width: 100%
-
-  }
-
-  .SearchBarIcon {
-      padding-right: 10px;
-      color:grey
-  }
-}
-
-
-
-
-
-
-body {
   margin: 0;
-  background-color: #F6F7FB;
+  background-color: #f6f7fb;
+}
+//formats main content of body
+#bodyContent {
+  width: 90%;
+  margin: auto;
+}
+//style for NEW Aggrigator title
+#PageTitle {
+  padding: 20px 0px 20px;
 }
 
+//CSS for seach bar parent
+#SearchParent {
+  border-radius: 20px;
+  background-image: url("https://www.pixel4k.com/wp-content/uploads/2019/06/singapore-city-skyline-4k_1560535789.jpg");
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @mixin ItemEnd {
+    display: flex;
+    justify-content: space-between;
+  }
+  .ItemEnd {
+    @include ItemEnd;
+  }
+  //css for search bar
+  .SearchBar {
+    @include ItemEnd;
+    background-color: white;
+    border-radius: 5px;
+    width: 70%;
+    padding: 10px;
+    //css for search bar input
+    .SearchInputBase {
+      width: 100%;
+    }
+    //CSS for search bar icon briefcase
+    .SearchBarIcon {
+      padding-right: 10px;
+      color: grey;
+    }
+  }
+}
 
+//css for news articles  body
 #JobBody {
-   margin-top: 20px;
-
-
-   .ItemSpacing {
-      margin: 20px 20px 20px 0px;
-
-   }
-
-.JobPostContainer {
-  margin: 10px 0px 10px 0px;
-  .JobPostitem {
- 
-    padding: 10px !important;
- }
-
-}
-
-
-   .CompanyProfilePic {
+  margin-top: 20px;
+  //css for individual news articles
+  .JobPostContainer {
+    margin: 10px 0px 10px 0px;
+    .JobPostitem {
+      padding: 10px !important;
+    }
+    .CompanyProfilePic {
       height: 100% !important;
       width: 100% !important;
-   }
-
-   .Icon {    margin-bottom: -5px;}
-
-   .IconsContainer {
-        padding-left: 10px;
-
-   }
+    }
+    .Icon {
+      margin-bottom: -5px;
+    }
+    .IconsContainer {
+      padding-left: 10px;
+    }
+  }
 }
 
-
+/*CSS for page tracker at the bottom*/
 .PageNumber {
   justify-content: flex-end;
 }
-
-
+/*CSS for select new source menu pop up*/
 .MenuPosition {
   transform: translate(0px, 105px) !important;
 }
-
-
+/*CSS for the scroll bar*/
 ::-webkit-scrollbar {
   width: 10px;
 }
-
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #888;
 }
-
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #555;
 }
-
