@@ -1,0 +1,28 @@
+.header_HomeIcon {
+  width: 50px;
+}
+
+//css for search bar holder
+.SearchBar {
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+  border: 1px #ccc solid;
+  border-radius: 5px;
+  margin-bottom: 10px !important;
+  //css for search bar input
+  .SearchBar_InputRoot {
+    width: 100%;
+  }
+
+  .SearchBar_Input {
+    padding: 10px !important;
+  }
+
+  .SearchBar_Icon {
+    border-color: #fafafa;
+    border-left: 1px solid lightgray;
+    color: #f8f8f8;
+    cursor: pointer;
+  }
+}

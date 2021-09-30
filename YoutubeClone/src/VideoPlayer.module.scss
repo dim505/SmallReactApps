@@ -1,0 +1,23 @@
+.TextSpace {
+  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+  align-items: center;
+}
+
+.VideoStatContainer {
+  display: flex;
+  align-items: center;
+}
+
+.ChannelInfo {
+  padding: 10px;
+}
+
+.VideoContainer {
+  aspect-ratio: 16 / 9;
+  iframe {
+    width: 100%;
+    height: 100%;
+  }
+}
