@@ -1,0 +1,20 @@
+//CSS to display video info
+.VideoCard {
+  margin: 10px;
+
+  .VideoCard_ChannelAvatar {
+    margin: 10px;
+  }
+  .VideoCard_Content {
+    display: flex;
+  }
+}
+
+//loading CSS for preloader
+.Loader {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}

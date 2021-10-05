@@ -8,11 +8,13 @@ import Button from "@material-ui/core/Button";
 import SearchIcon from "@material-ui/icons/Search";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-import AppStateContext from "./Shared/appState";
-import { Link } from 'react-router-dom';
+import AppStateContext from "../../Shared/appState";
+import { Link } from "react-router-dom";
 
+//contains the nav bar and search bar
 const Header = () => {
-  const AppState = useContext(AppStateContext)
+  const AppState = useContext(AppStateContext);
+  //keeps track of what the user searched
   const [SearchTerm, SetSearchTerm] = useState("");
   return (
     <div>
@@ -20,12 +22,12 @@ const Header = () => {
         <Grid xs item>
           <div>
             <Link to={"/"}>
-            <IconButton>
-              <img
-                className={HeaderCss.header_HomeIcon}
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_of_YouTube_%282015-2017%29.svg/502px-Logo_of_YouTube_%282015-2017%29.svg.png"
-              />
-            </IconButton>
+              <IconButton>
+                <img
+                  className={HeaderCss.header_HomeIcon}
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Logo_of_YouTube_%282015-2017%29.svg/502px-Logo_of_YouTube_%282015-2017%29.svg.png"
+                />
+              </IconButton>
             </Link>
           </div>
         </Grid>
@@ -35,9 +37,9 @@ const Header = () => {
               endAdornment={
                 <div className={HeaderCss.SearchBar_Icon}>
                   <Link to={`/search/${SearchTerm}`}>
-                  <IconButton>
-                    <SearchIcon />
-                  </IconButton>
+                    <IconButton>
+                      <SearchIcon />
+                    </IconButton>
                   </Link>
                 </div>
               }
@@ -48,7 +50,7 @@ const Header = () => {
               value={SearchTerm}
               onChange={(event) => {
                 SetSearchTerm(event.target.value);
-                AppState.SetSearchTerm(event.target.value)
+                AppState.SetSearchTerm(event.target.value);
               }}
               placeholder="Search"
             />
