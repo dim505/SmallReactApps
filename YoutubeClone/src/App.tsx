@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useContext } from "react";
+ 
 import Header from "./Components/Header/Header";
 import RecommendedVideos from "./Components/RecommendedVideo/RecommendedVideos";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router,  Route } from "react-router-dom";
 import SearchPageResults from "./Components/SearchPageResults/SearchPageResults.tsx";
 import VideoPlayer from "./Components/VideoPlayer/VideoPlayer";
 import Grid from "@material-ui/core/Grid";
 import "./Global.scss";
-import Fade from "@mui/material/Fade";
+ 
 //root parent that contains all the routes for the app
 const App = () => {
   return (

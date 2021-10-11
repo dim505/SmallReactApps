@@ -22,13 +22,3 @@
     height: 100%;
   }
 }
-//css for video like icon
-.like {
-  color: green !important;
-  padding-right: 10px;
-}
-//css for video dislike icon
-.dislike {
-  padding-right: 10px;
-  color: red;
-}

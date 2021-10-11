@@ -4,25 +4,25 @@ import axios from "axios";
 import Alert from "@mui/material/Alert";
 import VideoCard from "./VideoCard";
 import Grid from "@material-ui/core/Grid";
-import Fade from "@mui/material/Fade";
+ 
 import moment from "moment";
 import numeral from "numeral";
 import CSS from "./RecommendedVideo.module.scss";
 //parents that will display recommended videos for related youtube video that the user is watching
 const RecommendedVideos = (props) => {
   //holds the video data for the recommeded video
-  const [VideoData, SetVideoData] = useState([]);
+  const [VideoData, SetVideoData] = useState<Array>([]);
   //displays loader
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   //shows error when it errors out
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   useEffect(() => {
     //shows loader 
     setIsLoading(true);
     var url = "";
     //changes URL depending on where its being used 
-    if (props.Location == "home") {
+    if (props.Location === "home") {
       url = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=12&regionCode=US&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
     } else {
       url = `https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${props.VideoID}&type=video&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
@@ -49,12 +49,12 @@ const RecommendedVideos = (props) => {
     let newVideoCards = [];
     for (const video of videoItems) {
       //sometimes the API returns bad data, this skips that 
-      if (video.snippet == undefined) {
+      if (video.snippet === undefined) {
         continue;
       }
       var videoId = "";
       //diff in data format for sidebar and home page data
-      if (props.Location == "sidebar") {
+      if (props.Location === "sidebar") {
         videoId = video.id.videoId;
       } else {
         videoId = video.id;
@@ -69,8 +69,8 @@ const RecommendedVideos = (props) => {
       const title = snippet.title;
       const image = snippet.thumbnails.medium.url;
       var views = "";
-      if (props.Location == "home") {
-        views = numeral(video.statistics.viewCount).format("0a") + " | views";
+      if (props.Location === "home") {
+        views = numeral(video.statistics.viewCount).format("0a") + " views | ";
       }
 
       const timestamp = moment(snippet.publishedAt, "YYYY-MM-DD").fromNow();
@@ -110,16 +110,18 @@ const RecommendedVideos = (props) => {
 
       {VideoData.map((SingleVideo) => {
         return (
-          <Fade in={true}>
+          
             <Grid
               item
               xs={props.BreakPoints.xs}
               sm={props.BreakPoints.sm}
               md={props.BreakPoints.md}
             >
+            
               <VideoCard SingleVideo={SingleVideo} />
+            
             </Grid>
-          </Fade>
+          
         );
       })}
     </>
